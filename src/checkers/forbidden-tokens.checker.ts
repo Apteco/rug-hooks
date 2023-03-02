@@ -28,7 +28,7 @@ export const defaultOptions: ForbiddenTokensConfig = {
 export class ForbiddenTokensChecker implements Checker {
   private readonly fileMatchers = {
     tsjs: /\.(ts|js)x?$/,
-    spec: /\.spec\.(t|j)s$/,
+    spec: /\.(spec|cy)\.(t|j)s$/,
   };
   private readonly forbiddenTokens: TokenRuleMap = {
     fit: { regex: /fit\(/, fileRegex: this.fileMatchers.spec },
