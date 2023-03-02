@@ -1,10 +1,10 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 
-import { container } from 'tsyringe';
+import { container } from "tsyringe";
 
-import { ForbiddenTokensChecker, defaultOptions } from './forbidden-tokens.checker';
+import { ForbiddenTokensChecker, defaultOptions } from "./forbidden-tokens.checker";
 
-describe('Forbidden Tokens Checker', () => {
+describe("Forbidden Tokens Checker", () => {
   let getStagedChanges: jest.Mock;
   let exists: jest.Mock;
   let readFile: jest.Mock;
@@ -36,22 +36,22 @@ describe('Forbidden Tokens Checker', () => {
     readFile.mockReset();
 
     container.clearInstances();
-    container.registerInstance('GitUtils', gitUtils);
-    container.registerInstance('FileSystemUtils', fileSystemUtils);
-    container.registerInstance('Logger', logger);
+    container.registerInstance("GitUtils", gitUtils);
+    container.registerInstance("FileSystemUtils", fileSystemUtils);
+    container.registerInstance("Logger", logger);
 
     forbiddenTokenChecker = container.resolve(ForbiddenTokensChecker);
   });
 
-  it('should return errors on file with forbidden tokens', async () => {
-    getStagedChanges.mockImplementation(() => ['tests.spec.ts']);
+  it("should return errors on file with forbidden tokens", async () => {
+    getStagedChanges.mockImplementation(() => ["tests.spec.ts"]);
     exists.mockImplementation((_path: string) => true);
     readFile.mockImplementation(
       (_path: string) => `fdescribe("Some describe", () => {})
 		fit("Some it", () => {})
 		it.only("Some it only", () => {})
 		describe.only("Some describe only", () => {})
-		debugger;`,
+		debugger;`
     );
 
     const results = await forbiddenTokenChecker.run(options);
@@ -59,12 +59,12 @@ describe('Forbidden Tokens Checker', () => {
     expect(results.fails?.length).toBe(4);
   });
 
-  it('should return success on a file with no errors', async () => {
-    getStagedChanges.mockImplementation(() => ['tests.spec.ts']);
+  it("should return success on a file with no errors", async () => {
+    getStagedChanges.mockImplementation(() => ["tests.spec.ts"]);
     exists.mockImplementation((_path: string) => true);
     readFile.mockImplementation(
       (_path: string) => `describe("Some describe", () => {})
-		it("Some it", () => {})`,
+		it("Some it", () => {})`
     );
 
     const results = await forbiddenTokenChecker.run(options);
@@ -73,7 +73,7 @@ describe('Forbidden Tokens Checker', () => {
   });
 
   it("should not run if file doesn't exist", async () => {
-    getStagedChanges.mockImplementation(() => ['tests.spec.ts']);
+    getStagedChanges.mockImplementation(() => ["tests.spec.ts"]);
     exists.mockImplementation((_path: string) => false);
 
     const results = await forbiddenTokenChecker.run(options);
@@ -83,8 +83,8 @@ describe('Forbidden Tokens Checker', () => {
     expect(results.success).toBe(true);
   });
 
-  it('should ignore a rule if its option is false', async () => {
-    getStagedChanges.mockImplementation(() => ['tests.spec.ts']);
+  it("should ignore a rule if its option is false", async () => {
+    getStagedChanges.mockImplementation(() => ["tests.spec.ts"]);
     exists.mockImplementation((_path: string) => true);
     readFile.mockImplementation((_path: string) => 'fdescribe("Some describe", () => {})');
 
