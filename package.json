@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aiecee/rug-hooks.git"
+    "url": "git+https://github.com/Apteco/rug-hooks.git"
   },
   "keywords": [
     "git",
@@ -27,12 +27,12 @@
     "git-hooks",
     "husky"
   ],
-  "author": "aiecee",
+  "author": "Apteco",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aiecee/rug-hooks/issues"
+    "url": "https://github.com/Apteco/rug-hooks/issues"
   },
-  "homepage": "https://github.com/aiecee/rug-hooks#readme",
+  "homepage": "https://github.com/Apteco/rug-hooks#readme",
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
     "@types/jest": "^27.4.0",
