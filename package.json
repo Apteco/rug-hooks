@@ -1,6 +1,6 @@
 {
   "name": "rug-hooks",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "CLI utility to bundle up and run some ReallyUsefulGit-Hooks",
   "main": "./lib/cli.js",
   "types": "./lib/cli.d.ts",
